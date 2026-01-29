@@ -1,14 +1,21 @@
 from db import get_connection
 from tools.ai_engine import generate_functional_tests
 import json
+import logging
 
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(message)s",
+)
+
+logger = logging.getLogger(__name__)
 
 def generate_functional_tests_job(job_id: int):
     """
     RQ worker entry function.
     """
-    print(f"Processing job_id={job_id}")
-
+    #print(f"Processing job_id={job_id}", flush=True)
+    logger.info("Processing job_id=%s", job_id)
     conn = get_connection()
     try:
         with conn.cursor() as cursor:
@@ -53,8 +60,8 @@ def generate_functional_tests_job(job_id: int):
             )
             stories = cursor.fetchall()
 
-            print(f"Fetched {len(stories)} user stories for job_id={job_id}")
-
+            #print(f"Fetched {len(stories)} user stories for job_id={job_id}")
+            logger.info("Fetched %d user stories for job_id=%s", len(stories), job_id)
             for story in stories:
                 payload = {
                     "user_story": story["user_story_text"],
@@ -65,7 +72,8 @@ def generate_functional_tests_job(job_id: int):
                 # 4️⃣ Call AI engine
                 result = generate_functional_tests(payload)
 
-                print(f"Generated {len(result.test_cases)} test cases for user_story_id={story['user_story_id']}")
+                #print(f"Generated {len(result.test_cases)} test cases for user_story_id={story['user_story_id']}")
+                logger.info("Generated %d test cases for user_story_id=%s", len(result.test_cases), story["user_story_id"])
 
                 # 5️⃣ Persist functional test cases
                 for tc in result.test_cases:
