@@ -65,6 +65,8 @@ def generate_functional_tests_job(job_id: int):
                 # 4️⃣ Call AI engine
                 result = generate_functional_tests(payload)
 
+                print(f"Generated {len(result.test_cases)} test cases for user_story_id={story['user_story_id']}")
+
                 # 5️⃣ Persist functional test cases
                 for tc in result.test_cases:
                     cursor.execute(
