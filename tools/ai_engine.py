@@ -2,16 +2,16 @@
 from utils.language_detect import detect_language_from_file
 from utils.json_parse import clean_llm_json_safe
 import json
-from config import AppConfig
+#from config import AppConfig
 from typing import Optional, List, Dict, Any
 from fastapi import HTTPException
 from utils.functional_test.functional_test_case_generator_svc import run_functional_test_case_generation
 from utils.unit_test.unit_test_case_generator_svc import run_unit_test_case_generation
 from utils.priority_summary import summarize_test_case_priorities
 from pydantic import BaseModel, HttpUrl
-
-cfg = AppConfig()
-
+#load from 
+#cfg = AppConfig()
+import os
 #from utils.priority_summary import summarize_test_case_priorities
 # ------------ Helpers ------------
 
@@ -69,8 +69,10 @@ def generate_functional_tests(payload: dict) -> dict:
     if not user_story or not acceptance_criteria:
         raise HTTPException(status_code=400, detail="user_story and acceptance_criteria are required")
 
-    api_key = cfg.api_key
-    model_name =cfg.model_name
+    # api_key = cfg.api_key
+    # model_name =cfg.model_name
+    api_key = os.environ["api_key"]
+    model_name = os.environ["model_name"]
     # map label to internal framework key expected by service
     selected_framework = _map_framework_label_to_key(framework_choice)
     # Here you would integrate with your AI engine (e.g., OpenAI, etc.)

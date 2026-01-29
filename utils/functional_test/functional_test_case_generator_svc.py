@@ -8,7 +8,8 @@ from langgraph.checkpoint.memory import MemorySaver
 from langchain_core.messages import HumanMessage, SystemMessage
 from langgraph.prebuilt import tools_condition, ToolNode
 
-from config import AppConfig
+#from config import AppConfig
+import os
 from utils.google_llm_handler import initialize_llm
 from utils.functional_test.graph_initialize_functional_test import FunctionalTestCaseGraph
 from utils.functional_test.functional_test_rag_pipeline import FunctionalTestCaseRAG

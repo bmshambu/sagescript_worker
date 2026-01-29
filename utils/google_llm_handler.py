@@ -1,10 +1,10 @@
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_huggingface import HuggingFaceEmbeddings
-from config import AppConfig
+#from config import AppConfig
 import os
 
-cfg=AppConfig()
+#cfg=AppConfig()
 
 def initialize_llm(api_key,model_name):
     if "GOOGLE_API_KEY" not in os.environ:
