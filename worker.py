@@ -143,13 +143,22 @@ def generate_functional_tests_job(job_id: int):
         conn.close()
 
 
-from rq import Worker
-from rq.worker import SimpleWorker
-from rq_config import redis_conn
+# from rq import Worker
+# from rq.worker import SimpleWorker
+# from rq_config import redis_conn
 
-if __name__ == "__main__":
-    worker = SimpleWorker(
-        ["functional-test-generation"],
-        connection=redis_conn
-    )
-    worker.work()
+# if __name__ == "__main__":
+#     worker = SimpleWorker(
+#         ["functional-test-generation"],
+#         connection=redis_conn
+#     )
+#     worker.work()
+
+# from rq import Worker
+# from rq import Connection
+# from rq_config import redis_conn
+
+# if __name__ == "__main__":
+#     with Connection(redis_conn):
+#         worker = Worker(["functional-test-generation"])
+#         worker.work()
